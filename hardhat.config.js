@@ -1,5 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
-
+require('dotenv').config();
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {
@@ -8,7 +8,7 @@ module.exports = {
     },
     ropsten: {
       chainId: 3,
-      url: process.env.API_URL,
+      url: "https://ropsten.infura.io/v3/475f30009ec149f9a426b73a074256c6",
       accounts: {
         mnemonic: process.env.MNEMONIC
       },
@@ -25,7 +25,6 @@ module.exports = {
       timeout: 200000,
       gas: 2100000, 
       gasPrice: 8000000000,
-      nonce:150
     },
   },
   solidity: {
