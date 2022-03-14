@@ -1,6 +1,8 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
-const zeroAddress = 0x0000000000000000000000000000000000000000
+const zeroAddress = 0x0000000000000000000000000000000000000000;
+
+const { increaseTimeTo, latestTime, duration } = require("./utils.js");
 
 describe("Pentagon Finance Test", function () {
   let farm
@@ -51,6 +53,10 @@ describe("Pentagon Finance Test", function () {
     expect(await farm.balanceOf(accounts[1].address)).not.equal(0)
     expect(await farm.balanceOf(accounts[2].address)).to.equal(0)
 
+    const now = await latestTime();
+    await increaseTimeTo(now + duration.days(200));
+    await expect(pentagon.connect(accounts[2]).getReward()).emit(pentagon, "RewardPaid")
+
   })
 
   it("Check withdraw", async function () {
@@ -59,7 +65,11 @@ describe("Pentagon Finance Test", function () {
     await expect(pentagon.connect(accounts[2]).withdraw(withdrawAmount)).emit(pentagon, "Withdrawn")
 
     expect(await usdc.balanceOf(accounts[1].address)).to.equal("500000000000000000000000")
-    expect(await usdc.balanceOf(accounts[2].address)).to.equal("499999000000000000000000")
+    expect(await usdc.balanceOf(accounts[2].address)).to.equal("500000000000000000000000")
     
+    const now = await latestTime();
+    await increaseTimeTo(now + duration.minutes(10));
+    const now2 = await latestTime();
+
   })
 });

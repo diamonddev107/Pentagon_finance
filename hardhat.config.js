@@ -4,6 +4,7 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
+      timeout: 200000,
 
     },
     ropsten: {
