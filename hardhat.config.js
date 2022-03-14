@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require('dotenv').config();
+require("@nomiclabs/hardhat-etherscan");
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {
@@ -27,6 +28,11 @@ module.exports = {
       gas: 2100000, 
       gasPrice: 8000000000,
     },
+  },
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: "https://ropsten.infura.io/v3/475f30009ec149f9a426b73a074256c6"
   },
   solidity: {
     compilers: [

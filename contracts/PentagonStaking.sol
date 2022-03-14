@@ -6,8 +6,6 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
-import "hardhat/console.sol";
-
 contract PentagonStaking is Ownable {
 
 	struct UserInfo {
@@ -50,7 +48,6 @@ contract PentagonStaking is Ownable {
 		uint passedTime = block.timestamp - users[account].lastUpdateTime;
 		if(passedTime >= users[account].lockTime) users[account].lockTime = 0;
 		else users[account].lockTime -= block.timestamp - users[account].lastUpdateTime;
-		console.log("locktime is %s", users[account].lockTime);
 		if (account != address(0) && users[account].lockTime == 0) {
 			users[account].rewards = earned(account);
 			users[account].lastUpdateTime = block.timestamp;
